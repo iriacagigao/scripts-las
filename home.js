@@ -1172,7 +1172,7 @@
 
 
 /* ==========================================================
-   13. CARGA DE FUENTES · Inter + JetBrains Mono
+   13. CARGA DE FUENTES · Inter completa + JetBrains Mono
    ========================================================== */
 (function () {
   if (document.querySelector('link[data-las-font="loaded"]')) return;
@@ -1193,11 +1193,6 @@
   link.rel = 'stylesheet';
   link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@200;300;400&display=swap';
   document.head.appendChild(link);
-
-  /* Alias propio para evitar conflicto con Inter limitada de TPOP */
-  const aliasStyle = document.createElement('style');
-  aliasStyle.textContent = '@font-face { font-family: "LASInter"; src: local("Inter"), local("Inter-Regular"); }';
-  document.head.appendChild(aliasStyle);
 })();
 
 
