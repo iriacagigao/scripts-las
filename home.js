@@ -1172,15 +1172,15 @@
 
 
 /* ==========================================================
-   13. CARGA DE JETBRAINS MONO
+   13. CARGA DE FUENTES · Inter + JetBrains Mono
    ========================================================== */
 (function () {
-  if (document.querySelector('link[data-las-font="jetbrains"]')) return;
+  if (document.querySelector('link[data-las-font="loaded"]')) return;
 
   const pre1 = document.createElement('link');
   pre1.rel = 'preconnect';
   pre1.href = 'https://fonts.googleapis.com';
-  pre1.setAttribute('data-las-font', 'jetbrains');
+  pre1.setAttribute('data-las-font', 'loaded');
   document.head.appendChild(pre1);
 
   const pre2 = document.createElement('link');
@@ -1191,8 +1191,13 @@
 
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;300;400&display=swap';
+  link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@200;300;400&display=swap';
   document.head.appendChild(link);
+
+  /* Alias propio para evitar conflicto con Inter limitada de TPOP */
+  const aliasStyle = document.createElement('style');
+  aliasStyle.textContent = '@font-face { font-family: "LASInter"; src: local("Inter"), local("Inter-Regular"); }';
+  document.head.appendChild(aliasStyle);
 })();
 
 
