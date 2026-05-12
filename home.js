@@ -1265,8 +1265,7 @@
         '<p class="las-hero-desc">Arte original sobre piezas que duran. Para los que se llevan el mar puesto al salir del agua.</p>' +
         '<div class="las-hero-cta-wrap">' +
           '<a href="/colecciones" class="las-hero-cta">' +
-            '<span>NO ENTRES</span>' +
-            '<span>sin ganas</span>' +
+            '<span>NO ENTRES AQUÍ</span>' +
             '<span class="las-arrow">&rarr;</span>' +
           '</a>' +
         '</div>' +
