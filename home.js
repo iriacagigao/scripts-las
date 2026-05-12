@@ -1254,21 +1254,21 @@
       '<div class="las-hero-inner">' +
         '<h1 class="las-hero-claim">' +
           '<span class="las-line-1">' +
-            'TU CUERPO EN<span class="las-break"></span>' +
-            '<span class="las-outlined">TIERRA.</span>' +
+            'TU CUERPO<span class="las-break"></span>' +
+            'EN <span class="las-outlined">TIERRA.</span>' +
           '</span>' +
           '<span class="las-line-2">' +
-            'TU CABEZA EN<span class="las-break"></span>' +
-            'EL <span class="las-accent">MAR.</span>' +
+            'TU CABEZA<span class="las-break"></span>' +
+            'EN EL <span class="las-accent">MAR.</span>' +
           '</span>' +
         '</h1>' +
         '<p class="las-hero-desc">Arte original sobre piezas que duran. Para los que se llevan el mar puesto al salir del agua.</p>' +
         '<div class="las-hero-cta-wrap">' +
           '<a href="/colecciones" class="las-hero-cta">' +
-           '<span>NO ENTRES AQUÍ</span>' +
+            '<span>NO ENTRES AQUÍ</span>' +
           '</a>' +
-        '<p class="las-hero-cta-subtext">si no tienes un poco de curiosidad</p>' +
-       '</div>' +
+          '<p class="las-hero-cta-subtext">si no tienes un poco de curiosidad</p>' +
+        '</div>' +
       '</div>';
 
     if (banner.nextSibling) {
