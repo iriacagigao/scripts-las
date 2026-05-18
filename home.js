@@ -1288,3 +1288,79 @@
   const obs = new MutationObserver(() => { if (isHome()) injectHeroText(); });
   obs.observe(document.body, { childList: true, subtree: true });
 })();
+
+/* ==========================================================
+   16. HOME · BLOQUE DE VALORES (4 iconos sobre fondo blanco)
+   ========================================================== */
+(function () {
+  function isHome() {
+    return location.pathname === '/' || location.pathname === '/index.html';
+  }
+  if (!isHome()) return;
+
+  const ICON_BASE = 'https://cdn.jsdelivr.net/gh/iriacagigao/scripts-las@main/assets/iconos/';
+
+  const VALUES = [
+    {
+      icon: 'icono-huella-ola.png',
+      title: 'Único.',
+      text: 'Con cero ganas de hacer más de lo mismo.'
+    },
+    {
+      icon: 'icono-local.png',
+      title: '43° N.',
+      text: 'Alma atlántica, agua fría y mar de fondo.'
+    },
+    {
+      icon: 'icono-eco.png',
+      title: 'Consciente.',
+      text: 'Orgánico, reciclado, tintas ecológicas y cero atajos.'
+    },
+    {
+      icon: 'icono-pod.png',
+      title: 'Bajo demanda.',
+      text: 'Se fabrica cuando lo pides, sin sobreproducción.'
+    }
+  ];
+
+  function injectValues() {
+    if (document.querySelector('.las-values')) return true;
+
+    const hero = document.querySelector('.las-hero-text');
+    if (!hero || !hero.parentElement) return false;
+
+    const section = document.createElement('section');
+    section.className = 'las-values';
+
+    let cardsHTML = '';
+    VALUES.forEach(function (v) {
+      cardsHTML +=
+        '<div class="las-value-card">' +
+          '<div class="las-value-icon">' +
+            '<img src="' + ICON_BASE + v.icon + '" alt="' + v.title + '" />' +
+          '</div>' +
+          '<h3 class="las-value-title">' + v.title + '</h3>' +
+          '<p class="las-value-text">' + v.text + '</p>' +
+        '</div>';
+    });
+
+    section.innerHTML = '<div class="las-values-inner">' + cardsHTML + '</div>';
+
+    if (hero.nextSibling) {
+      hero.parentNode.insertBefore(section, hero.nextSibling);
+    } else {
+      hero.parentNode.appendChild(section);
+    }
+
+    return true;
+  }
+
+  injectValues();
+  let tries = 0;
+  const timer = setInterval(() => {
+    tries++;
+    if (injectValues() || tries >= 40) clearInterval(timer);
+  }, 250);
+  const obs = new MutationObserver(() => { if (isHome()) injectValues(); });
+  obs.observe(document.body, { childList: true, subtree: true });
+})();
