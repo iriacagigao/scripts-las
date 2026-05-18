@@ -1364,3 +1364,54 @@
   const obs = new MutationObserver(() => { if (isHome()) injectValues(); });
   obs.observe(document.body, { childList: true, subtree: true });
 })();
+
+/* ==========================================================
+   17. HOME · FOOTER REFORZADO (banda negra final)
+   ========================================================== */
+(function () {
+  function isHome() {
+    return location.pathname === '/' || location.pathname === '/index.html';
+  }
+  if (!isHome()) return;
+
+  function injectFooter() {
+    if (document.querySelector('.las-footer')) return true;
+
+    const values = document.querySelector('.las-values');
+    if (!values || !values.parentElement) return false;
+
+    const footer = document.createElement('section');
+    footer.className = 'las-footer';
+
+    footer.innerHTML =
+      '<div class="las-footer-inner">' +
+        '<h2 class="las-footer-brand">' +
+          'LIFE<span class="las-footer-slash">/</span>' +
+          'AFTR' +
+          '<span class="las-footer-slash">/</span>SURF' +
+        '</h2>' +
+        '<p class="las-footer-lema">' +
+          'Todo lo que pasa <span class="las-footer-slash-lema">/</span>' +
+          'después<span class="las-footer-slash-lema">/</span>.' +
+        '</p>' +
+        '<p class="las-footer-firma">arte x iria cagigao</p>' +
+      '</div>';
+
+    if (values.nextSibling) {
+      values.parentNode.insertBefore(footer, values.nextSibling);
+    } else {
+      values.parentNode.appendChild(footer);
+    }
+
+    return true;
+  }
+
+  injectFooter();
+  let tries = 0;
+  const timer = setInterval(() => {
+    tries++;
+    if (injectFooter() || tries >= 40) clearInterval(timer);
+  }, 250);
+  const obs = new MutationObserver(() => { if (isHome()) injectFooter(); });
+  obs.observe(document.body, { childList: true, subtree: true });
+})();
