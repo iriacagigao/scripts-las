@@ -1262,7 +1262,7 @@
             'EN EL <span class="las-accent">MAR.</span>' +
           '</span>' +
         '</h1>' +
-        '<p class="las-hero-desc">Arte original sobre piezas que duran. Para los que se llevan el mar puesto al salir del agua.</p>' +
+        '<p class="las-hero-desc">Arte original sobre piezas que duran.<span class="las-desc-break"></span>Para los que se llevan el mar puesto al salir del agua.</p>' +
         '<div class="las-hero-cta-wrap">' +
           '<a href="/colecciones" class="las-hero-cta">' +
             '<span>NO ENTRES AQUÍ</span>' +
