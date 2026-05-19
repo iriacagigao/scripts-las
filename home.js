@@ -1417,20 +1417,21 @@
 })();
 
 /* ==========================================================
-   18. HOME · TRANSICIÓN "la tienda." antes del grid de productos
+   18. PASTILLA "la tienda." 
+   En home: después del footer reforzado.
+   En /shop: al inicio del grid de productos.
    ========================================================== */
 (function () {
   function isHome() {
     return location.pathname === '/' || location.pathname === '/index.html';
   }
-  if (!isHome()) return;
+  function isShop() {
+    return /\/shop\/?$/.test(location.pathname);
+  }
 
-  function injectShopLabel() {
-    if (document.querySelector('.las-shop-label')) return true;
+  if (!isHome() && !isShop()) return;
 
-    const footer = document.querySelector('.las-footer');
-    if (!footer || !footer.parentElement) return false;
-
+  function buildLabel() {
     const section = document.createElement('section');
     section.className = 'las-shop-label';
 
@@ -1442,13 +1443,69 @@
         '<img src="https://cdn.jsdelivr.net/gh/iriacagigao/scripts-las@main/assets/iconos/wave-down.png" alt="" />' +
       '</div>';
 
-    if (footer.nextSibling) {
-      footer.parentNode.insertBefore(section, footer.nextSibling);
-    } else {
-      footer.parentNode.appendChild(section);
+    return section;
+  }
+
+  /* Encuentra el grid de productos probando varios selectores */
+  function findProductsGrid() {
+    const selectors = [
+      'section.products',
+      '.products',
+      'section[class*="products"]',
+      'main section:has(.card-product)',
+      'main section:has(.product-item)',
+      '.product-grid',
+      '.grid-products'
+    ];
+
+    for (let i = 0; i < selectors.length; i++) {
+      try {
+        const el = document.querySelector(selectors[i]);
+        if (el) return el;
+      } catch (e) {
+        /* algunos navegadores antiguos no soportan :has, lo ignoramos */
+      }
     }
 
-    return true;
+    /* Fallback: buscar el primer elemento que contenga muchas cards de producto */
+    const candidates = document.querySelectorAll('main section, main div');
+    for (let i = 0; i < candidates.length; i++) {
+      const el = candidates[i];
+      if (el.querySelectorAll('.card-product, .product-item, [class*="product"]').length >= 3) {
+        return el;
+      }
+    }
+
+    return null;
+  }
+
+  function injectShopLabel() {
+    if (document.querySelector('.las-shop-label')) return true;
+
+    /* === HOME: insertar después del footer reforzado === */
+    if (isHome()) {
+      const footer = document.querySelector('.las-footer');
+      if (!footer || !footer.parentElement) return false;
+
+      const section = buildLabel();
+      if (footer.nextSibling) {
+        footer.parentNode.insertBefore(section, footer.nextSibling);
+      } else {
+        footer.parentNode.appendChild(section);
+      }
+      return true;
+    }
+
+    /* === /SHOP: insertar al inicio del grid de productos === */
+    if (isShop()) {
+      const products = findProductsGrid();
+      if (!products || !products.parentElement) return false;
+
+      products.parentNode.insertBefore(buildLabel(), products);
+      return true;
+    }
+
+    return false;
   }
 
   injectShopLabel();
@@ -1457,6 +1514,8 @@
     tries++;
     if (injectShopLabel() || tries >= 40) clearInterval(timer);
   }, 250);
-  const obs = new MutationObserver(() => { if (isHome()) injectShopLabel(); });
+  const obs = new MutationObserver(() => {
+    if (isHome() || isShop()) injectShopLabel();
+  });
   obs.observe(document.body, { childList: true, subtree: true });
 })();
