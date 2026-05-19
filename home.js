@@ -1519,3 +1519,54 @@
   });
   obs.observe(document.body, { childList: true, subtree: true });
 })();
+
+/* ==========================================================
+   19. SCROLL AUTO A "la tienda." EN PAGINACIÓN DEL HOME
+   ========================================================== */
+(function () {
+  function isHome() {
+    return location.pathname === '/' || location.pathname === '/index.html';
+  }
+
+  if (!isHome()) return;
+
+  /* Detectar si la URL tiene parámetro de página > 1 */
+  function isPaginated() {
+    const params = new URLSearchParams(location.search);
+    const candidates = ['page', 'p', 'paged'];
+    for (let i = 0; i < candidates.length; i++) {
+      const val = params.get(candidates[i]);
+      if (val && parseInt(val, 10) > 1) return true;
+    }
+    return false;
+  }
+
+  if (!isPaginated()) return;
+
+  /* Cuando navegamos a página > 1, evitamos el salto inicial al top */
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  /* Esperar a que aparezca la pastilla y hacer scroll suave */
+  function scrollToShopLabel() {
+    const label = document.querySelector('.las-shop-label');
+    if (!label) return false;
+
+    setTimeout(() => {
+      label.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+
+    return true;
+  }
+
+  /* Intento inmediato */
+  if (scrollToShopLabel()) return;
+
+  /* Reintentar hasta que la pastilla exista (TPOP la inyecta tarde) */
+  let tries = 0;
+  const timer = setInterval(() => {
+    tries++;
+    if (scrollToShopLabel() || tries >= 50) clearInterval(timer);
+  }, 200);
+})();
