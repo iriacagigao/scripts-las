@@ -1415,3 +1415,48 @@
   const obs = new MutationObserver(() => { if (isHome()) injectFooter(); });
   obs.observe(document.body, { childList: true, subtree: true });
 })();
+
+/* ==========================================================
+   18. HOME · TRANSICIÓN "la tienda." antes del grid de productos
+   ========================================================== */
+(function () {
+  function isHome() {
+    return location.pathname === '/' || location.pathname === '/index.html';
+  }
+  if (!isHome()) return;
+
+  function injectShopLabel() {
+    if (document.querySelector('.las-shop-label')) return true;
+
+    const footer = document.querySelector('.las-footer');
+    if (!footer || !footer.parentElement) return false;
+
+    const section = document.createElement('section');
+    section.className = 'las-shop-label';
+
+    section.innerHTML =
+      '<div class="las-shop-band">' +
+        '<span class="las-shop-text">la tienda.</span>' +
+      '</div>' +
+      '<div class="las-shop-wave">' +
+        '<img src="https://cdn.jsdelivr.net/gh/iriacagigao/scripts-las@main/assets/iconos/wave-down.png" alt="" />' +
+      '</div>';
+
+    if (footer.nextSibling) {
+      footer.parentNode.insertBefore(section, footer.nextSibling);
+    } else {
+      footer.parentNode.appendChild(section);
+    }
+
+    return true;
+  }
+
+  injectShopLabel();
+  let tries = 0;
+  const timer = setInterval(() => {
+    tries++;
+    if (injectShopLabel() || tries >= 40) clearInterval(timer);
+  }, 250);
+  const obs = new MutationObserver(() => { if (isHome()) injectShopLabel(); });
+  obs.observe(document.body, { childList: true, subtree: true });
+})();
