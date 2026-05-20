@@ -1437,7 +1437,7 @@
 
     section.innerHTML =
       '<div class="las-shop-band">' +
-        '<span class="las-shop-text">la tienda.</span>' +
+        '<span class="las-shop-text">esto es lo que hay.</span>' +
       '</div>' +
       '<div class="las-shop-wave">' +
         '<img src="https://cdn.jsdelivr.net/gh/iriacagigao/scripts-las@main/assets/iconos/wave-down.png" alt="" />' +
