@@ -972,7 +972,8 @@
     'in-offshore-we-trust': '/collection/in-offshore-we-trust',
     'like-other-planet': '/collection/like-other-planet',
     'fish-foot': '/collection/fish-foot',
-    'breakfast': '/collection/breakfast'
+    'breakfast': '/collection/breakfast',
+    'pas-une-planche': '/collection/pas-une-planche'
   };
 
   function applyLinks() {
