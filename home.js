@@ -969,6 +969,7 @@
 
   const LINKS = {
     'life-aftr-surf': '/collection/life-aftr-surf',
+    'pas-une-planche': '/collection/pas-une-planche',
     'in-offshore-we-trust': '/collection/in-offshore-we-trust',
     'like-other-planet': '/collection/like-other-planet',
     'fish-foot': '/collection/fish-foot',
