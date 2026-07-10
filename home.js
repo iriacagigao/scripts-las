@@ -1001,6 +1001,40 @@
   observer.observe(document.body, { childList: true, subtree: true });
 })();
 
+(function () {
+  if (!/\/colecciones\/?$/.test(location.pathname)) return;
+
+  const LINKS = {
+    'pas-une-planche': '/collection/pas-une-planche',
+    // añade aquí las demás si algún día también pierden el alt:
+    // 'in-offshore-we-trust': '/collection/in-offshore-we-trust',
+  };
+
+  function applyLinks() {
+    document.querySelectorAll('img').forEach(img => {
+      if (img.dataset.linkifiedSrc === '1') return;
+      const src = (img.src || '').toLowerCase();
+      for (const key in LINKS) {
+        if (src.includes(key)) {
+          img.style.cursor = 'pointer';
+          img.style.pointerEvents = 'auto';
+          img.setAttribute('role', 'link');
+          img.addEventListener('click', () => { window.location.href = LINKS[key]; });
+          img.dataset.linkifiedSrc = '1';
+          break;
+        }
+      }
+    });
+  }
+
+  applyLinks();
+  let tries = 0;
+  const timer = setInterval(() => { applyLinks(); if (++tries >= 40) clearInterval(timer); }, 300);
+  new MutationObserver(applyLinks).observe(document.body, {
+    childList: true, subtree: true, attributes: true, attributeFilter: ['src']
+  });
+})();
+
 
 /* ==========================================================
    9. MENÚ COLECCIONES · TEXTO + FLECHA SEPARADAS
